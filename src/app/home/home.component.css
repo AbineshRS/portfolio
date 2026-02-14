@@ -1,0 +1,4 @@
+/* Reuse app section styles - import from app or duplicate minimal set */
+:host {
+  display: block;
+}

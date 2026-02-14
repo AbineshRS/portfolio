@@ -1,0 +1,186 @@
+<main>
+  <section class="hero section" aria-labelledby="hero-heading">
+    <span class="hero-badge">.NET Developer</span>
+    <h1 id="hero-heading">{{ data.name }}</h1>
+    <p class="tagline">{{ data.tagline }}</p>
+    <p class="hero-desc">{{ data.summary }}</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Get in touch</a>
+      <a [href]="data.github" target="_blank" rel="noopener" class="btn-outline">View GitHub</a>
+    </div>
+  </section>
+
+  <section id="about" class="section" aria-labelledby="about-heading">
+    <div class="section-head">
+      <h2 id="about-heading">About</h2>
+      <p>Professional summary</p>
+    </div>
+    <div class="about-content card">
+      <p>{{ data.summary }}</p>
+      <p style="margin-top: 1rem;">
+        <strong>Languages:</strong> {{ data.languages.join(' · ') }}
+      </p>
+    </div>
+  </section>
+
+  <section id="skills" class="section" aria-labelledby="skills-heading">
+    <div class="section-head">
+      <h2 id="skills-heading">Skills</h2>
+      <p>Technologies & tools I work with</p>
+    </div>
+    <div class="skills-grid">
+      @for (skill of data.skills; track skill) {
+        <span class="skill-pill">{{ skill }}</span>
+      }
+    </div>
+  </section>
+
+  <section id="experience" class="section" aria-labelledby="exp-heading">
+    <div class="section-head">
+      <h2 id="exp-heading">Experience</h2>
+      <p>Work & projects</p>
+    </div>
+    <div class="timeline">
+      @for (job of data.experience; track job.company) {
+        <article class="timeline-item card" itemscope itemtype="https://schema.org/JobPosting">
+          <div class="meta">
+            <span class="company" itemprop="hiringOrganization">{{ job.company }}</span>
+            <span class="badge">{{ job.type }}</span>
+            <span class="period" [attr.data-ats-start]="job.atsDates?.start" [attr.data-ats-end]="job.atsDates?.end">{{ job.atsDates?.display ?? job.period }}</span>
+          </div>
+          <p class="role" itemprop="title">{{ job.role }}</p>
+          @if (job.project) {
+            <p class="description">{{ job.description }}</p>
+            @if (job.viewLinks?.length || job.links?.length) {
+              <div class="project-links-block">
+                <span class="project-links-label">View project</span>
+                <div class="links project-links">
+                  @for (link of (job.viewLinks ?? job.links ?? []); track link.url) {
+                    <a [href]="link.url" target="_blank" rel="noopener" class="project-link">
+                      <span class="project-link-label">{{ link.label }}</span>
+                      <svg class="project-link-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                      </svg>
+                    </a>
+                  }
+                </div>
+              </div>
+            }
+            @if (job.gitLinks?.length) {
+              <div class="project-links-block">
+                <span class="project-links-label">Git</span>
+                <div class="links project-links">
+                  @for (link of job.gitLinks; track link.url) {
+                    <a [href]="link.url" target="_blank" rel="noopener" class="project-link project-link-git">
+                      <span class="project-link-label">{{ link.label }}</span>
+                      <svg class="project-link-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                  }
+                </div>
+              </div>
+            }
+          }
+          @if (job.projects) {
+            <div class="sub-projects">
+              @for (proj of job.projects; track proj.name) {
+                <div class="sub-project">
+                  <div class="sub-project-name">{{ proj.name }}</div>
+                  <p class="sub-project-desc">{{ proj.description }}</p>
+                  @if (proj.viewLinks?.length) {
+                    <div class="project-links-block">
+                      <span class="project-links-label">View project</span>
+                      <div class="links project-links">
+                        @if (proj.detailSlug) {
+                          <a [routerLink]="['/project', proj.detailSlug]" class="project-link">
+                            <span class="project-link-label">{{ proj.viewLinks?.[0]?.label ?? 'View project' }}</span>
+                            <svg class="project-link-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                            </svg>
+                          </a>
+                        } @else {
+                          @for (link of proj.viewLinks; track link.url) {
+                            <a [href]="link.url" target="_blank" rel="noopener" class="project-link">
+                              <span class="project-link-label">{{ link.label }}</span>
+                              <svg class="project-link-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                              </svg>
+                            </a>
+                          }
+                        }
+                      </div>
+                    </div>
+                  }
+                  @if (proj.gitLinks?.length || (proj.links && proj.links.length)) {
+                    <div class="project-links-block">
+                      <span class="project-links-label">Git</span>
+                      <div class="links project-links">
+                        @for (link of (proj.gitLinks ?? proj.links ?? []); track link.url) {
+                          <a [href]="link.url" target="_blank" rel="noopener" class="project-link project-link-git">
+                            <span class="project-link-label">{{ link.label }}</span>
+                            <svg class="project-link-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                          </a>
+                        }
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </article>
+      }
+    </div>
+  </section>
+
+  <section id="education" class="section" aria-labelledby="edu-heading">
+    <div class="section-head">
+      <h2 id="edu-heading">Education</h2>
+      <p>Academic background</p>
+    </div>
+    <div class="timeline">
+      @for (edu of data.education; track edu.degree) {
+        <div class="timeline-item card" itemscope itemtype="https://schema.org/EducationEvent">
+          <div class="edu-item">
+            <span class="degree" itemprop="name">{{ edu.degree }}</span>
+            <span class="institution" itemprop="organizer">{{ edu.institution }}</span>
+            <span class="period-grade" [attr.data-ats-start]="edu.atsDates?.start" [attr.data-ats-end]="edu.atsDates?.end">{{ edu.atsDates?.display ?? edu.period }} — {{ edu.grade }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section id="contact" class="section contact-section" aria-labelledby="contact-heading">
+    <div class="section-head">
+      <h2 id="contact-heading">Contact</h2>
+      <p>Reach out</p>
+    </div>
+    <div class="contact-grid">
+      <a href="tel:{{ data.contact.phone }}" class="contact-card" aria-label="Phone">
+        <span class="icon" aria-hidden="true">📞</span>
+        <div>
+          <div class="label">Phone</div>
+          <div class="value">{{ data.contact.phone }}</div>
+        </div>
+      </a>
+      <a [href]="'mailto:' + data.contact.email" class="contact-card" aria-label="Email">
+        <span class="icon" aria-hidden="true">✉️</span>
+        <div>
+          <div class="label">Email</div>
+          <div class="value">{{ data.contact.email }}</div>
+        </div>
+      </a>
+      <a [href]="data.github" target="_blank" rel="noopener" class="contact-card" aria-label="GitHub">
+        <span class="icon" aria-hidden="true">🔗</span>
+        <div>
+          <div class="label">GitHub</div>
+          <div class="value">AbineshRS</div>
+        </div>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>© {{ currentYear }} {{ data.name }}. Built with Angular.</p>
+</footer>

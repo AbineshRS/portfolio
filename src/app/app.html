@@ -1,0 +1,14 @@
+<nav class="nav-bar" aria-label="Main">
+  <div class="nav-inner">
+    <a routerLink="/" class="nav-logo">{{ data.name }}</a>
+    <div class="nav-links">
+      <a routerLink="/" fragment="about" (click)="onNavClick($event, 'about')">About</a>
+      <a routerLink="/" fragment="skills" (click)="onNavClick($event, 'skills')">Skills</a>
+      <a routerLink="/" fragment="experience" (click)="onNavClick($event, 'experience')">Experience</a>
+      <a routerLink="/" fragment="education" (click)="onNavClick($event, 'education')">Education</a>
+      <a routerLink="/" fragment="contact" (click)="onNavClick($event, 'contact')">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<router-outlet />
