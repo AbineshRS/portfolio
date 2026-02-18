@@ -1,12 +1,36 @@
-<nav class="nav-bar" aria-label="Main">
+<nav class="nav-bar" [class.menu-open]="mobileMenuOpen" aria-label="Main">
   <div class="nav-inner">
-    <a routerLink="/" class="nav-logo">{{ data.name }}</a>
-    <div class="nav-links">
-      <a routerLink="/" fragment="about" (click)="onNavClick($event, 'about')">About</a>
-      <a routerLink="/" fragment="skills" (click)="onNavClick($event, 'skills')">Skills</a>
-      <a routerLink="/" fragment="experience" (click)="onNavClick($event, 'experience')">Experience</a>
-      <a routerLink="/" fragment="education" (click)="onNavClick($event, 'education')">Education</a>
-      <a routerLink="/" fragment="contact" (click)="onNavClick($event, 'contact')">Contact</a>
+    <a routerLink="/" class="nav-logo" (click)="closeMobileMenu()">{{ data.name }}</a>
+    <button
+      type="button"
+      class="nav-toggle"
+      (click)="toggleMobileMenu()"
+      [attr.aria-label]="mobileMenuOpen ? 'Close menu' : 'Open menu'"
+      [attr.aria-expanded]="mobileMenuOpen"
+    >
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+    </button>
+    <div class="nav-actions">
+      <div class="nav-links">
+        <a routerLink="/" fragment="about" (click)="onNavClick($event, 'about'); closeMobileMenu()">About</a>
+        <a routerLink="/" fragment="highlights" (click)="onNavClick($event, 'highlights'); closeMobileMenu()">Highlights</a>
+        <a routerLink="/" fragment="skills" (click)="onNavClick($event, 'skills'); closeMobileMenu()">Skills</a>
+        <a routerLink="/" fragment="experience" (click)="onNavClick($event, 'experience'); closeMobileMenu()">Experience</a>
+        <a routerLink="/" fragment="education" (click)="onNavClick($event, 'education'); closeMobileMenu()">Education</a>
+        <a routerLink="/" fragment="contact" (click)="onNavClick($event, 'contact'); closeMobileMenu()">Contact</a>
+      </div>
+      <button
+        type="button"
+        class="theme-toggle"
+        (click)="toggleTheme()"
+        [attr.aria-label]="isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme'"
+        [attr.aria-pressed]="isDarkTheme"
+      >
+        <span class="theme-toggle-icon" aria-hidden="true">{{ isDarkTheme ? '☀' : '🌙' }}</span>
+        <span class="theme-toggle-text">{{ isDarkTheme ? 'Light' : 'Dark' }}</span>
+      </button>
     </div>
   </div>
 </nav>

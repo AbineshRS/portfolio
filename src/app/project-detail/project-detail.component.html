@@ -1,8 +1,28 @@
 @if (project; as proj) {
   <div class="project-detail section">
-    <p class="project-detail-breadcrumb">Keesa Express</p>
-    <h1 class="project-detail-title">{{ proj.name }}</h1>
-    <div class="project-detail-description card">
+    <header class="project-detail-header card">
+      <p class="project-detail-breadcrumb">Keesa Express · Production Project</p>
+      <h1 class="project-detail-title">{{ proj.name }}</h1>
+      <p class="project-detail-subtitle">{{ proj.description }}</p>
+
+      <div class="project-detail-meta">
+        <div class="meta-item">
+          <span class="meta-label">Project Type</span>
+          <span class="meta-value">Enterprise Web Application</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Role</span>
+          <span class="meta-value">Full-Stack .NET Developer</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Highlights</span>
+          <span class="meta-value">{{ proj.points?.length ?? 1 }} key points</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="project-detail-content card">
+      <h2 class="project-detail-section-title">Key Responsibilities & Implementation</h2>
       @if (proj.points?.length) {
         <ul class="project-detail-points">
           @for (point of proj.points; track point) {
@@ -13,17 +33,41 @@
         <p>{{ proj.description }}</p>
       }
     </div>
-    @if (proj.liveUrl) {
-      <a [href]="proj.liveUrl" target="_blank" rel="noopener" class="project-detail-live-btn btn-primary">
-        View live website
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-        </svg>
-      </a>
+
+    @if (proj.liveWebsiteDetails?.length || proj.liveUrl) {
+      <div class="project-detail-content card">
+        <h2 class="project-detail-section-title">Live Website Snapshot</h2>
+        @if (proj.liveWebsiteDetails?.length) {
+          <ul class="project-detail-points">
+            @for (item of proj.liveWebsiteDetails; track item) {
+              <li>{{ item }}</li>
+            }
+          </ul>
+        }
+        @if (proj.liveUrl) {
+          <p class="project-live-domain">
+            <strong>Primary URL:</strong>
+            <a [href]="proj.liveUrl" target="_blank" rel="noopener">{{ proj.liveUrl }}</a>
+          </p>
+        }
+      </div>
     }
+
+    <div class="project-detail-actions">
+      <a routerLink="/" fragment="experience" class="project-detail-back-btn">Back to portfolio</a>
+      @if (proj.liveUrl) {
+        <a [href]="proj.liveUrl" target="_blank" rel="noopener" class="project-detail-live-btn btn-primary">
+          View live website
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+          </svg>
+        </a>
+      }
+    </div>
   </div>
 } @else {
   <div class="project-detail section">
     <p class="project-detail-notfound">Project not found.</p>
+    <a routerLink="/" class="project-detail-back-btn">Back to portfolio</a>
   </div>
 }

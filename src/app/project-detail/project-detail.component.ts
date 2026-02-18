@@ -5,7 +5,7 @@ import { getProjectBySlug } from '../portfolio.data';
 @Component({
   selector: 'app-project-detail',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './project-detail.component.html',
   styleUrl: './project-detail.component.css',
 })

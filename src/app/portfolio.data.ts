@@ -17,6 +17,8 @@ export interface GitLink {
 export interface ExperienceProject {
   name: string;
   description: string;
+  /** Publicly observable details from live website/domain */
+  liveWebsiteDetails?: readonly string[];
   /** Point-wise details for detail page (15+ points) */
   points?: readonly string[];
   /** Slug for detail page route (e.g. oonsoft, furusaan, business-admin) */
@@ -53,25 +55,76 @@ export interface ExperienceItem {
 
 export const portfolioData = {
   name: 'ABINESH R S',
-  tagline: '.NET Developer',
-  summary: `.NET Developer with a strong background in designing, developing, and maintaining web and desktop applications. Proficient in C#, ASP.NET Core/MVC, WPF, and API development. Skilled in database management using SQL Server and Entity Framework. Experienced in front-end technologies such as Angular, React, HTML, CSS, and Bootstrap. Passionate about writing clean, maintainable code and collaborating with teams.`,
+  tagline: 'Full-Stack .NET Developer',
+  headline: 'C#, ASP.NET Core, React, Angular, SQL Server',
+  summary: `.NET Developer focused on building scalable web and desktop applications using C#, ASP.NET Core, React, Angular, and SQL Server. I design clean API layers, optimize data flow with Entity Framework and stored procedures, and ship production-ready features that improve reliability, speed, and user experience.`,
+  recruiterPitch:
+    'I bring hands-on experience across API development, dashboard apps, and business-critical platforms. I can contribute immediately in backend-heavy or full-stack .NET roles.',
+  quickFacts: [
+    '1.5+ years of hands-on .NET development',
+    '3 production platforms delivered',
+    'Web + desktop application experience',
+    'Strong SQL Server and API design background',
+  ],
+  impactHighlights: [
+    'Delivered and maintained 3 live business platforms at Keesa Express (OON SOFT, Furusaan, Business Admin).',
+    'Built secure REST APIs in .NET Web API for order flow, invoice lifecycle, admin operations, and role-based workflows.',
+    'Improved operational efficiency by automating invoice verification, status tracking, and reporting pipelines.',
+    'Designed reusable UI modules in React/Angular to ship dashboard and management features faster.',
+    'Worked across healthcare, education, e-commerce, and real-estate domains during professional and internship projects.',
+  ],
+  atsKeywords: [
+    'C#',
+    '.NET',
+    '.NET Web API',
+    'ASP.NET Core',
+    'ASP.NET MVC',
+    'Entity Framework',
+    'SQL Server',
+    'Stored Procedures',
+    'REST API',
+    'Authentication',
+    'Authorization',
+    'React',
+    'Angular',
+    'TypeScript',
+    'JavaScript',
+    'HTML5',
+    'CSS3',
+    'Bootstrap',
+    'WPF',
+    'Git',
+    'Agile',
+    'SDLC',
+  ],
   contact: {
     phone: '8300893013',
     email: 'abiabinesh483@gmail.com',
+    linkedin: 'https://www.linkedin.com/in/abineshrs',
   },
   skills: [
+    'C#',
+    '.NET Web API',
+    'ASP.NET MVC',
+    'REST API',
     'HTML',
     'CSS',
     'JavaScript',
+    'TypeScript',
     'Bootstrap',
     '.NET',
     'WPF',
     'SQL Server',
+    'Stored Procedures',
     'Git',
     'Angular',
     'React',
     'ASP.NET Core',
     'Entity Framework',
+    'Authentication',
+    'Authorization',
+    'Agile',
+    'SDLC',
   ],
   languages: ['English'],
   /** ATS-friendly: education with clear date ranges */
@@ -117,6 +170,11 @@ export const portfolioData = {
           name: 'OON SOFT – Digital ESET Keys Purchasing',
           detailSlug: 'oonsoft',
           description: 'Digital ESET antivirus key purchasing system under the OON SOFT brand (oonsoft.llc).',
+          liveWebsiteDetails: [
+            'Live domain: https://oonsoft.llc/',
+            'Public homepage title: "OON SOFT | Web & Mobile App Development Solutions".',
+            'Production website is publicly accessible and indexable by direct URL.',
+          ],
           points: [
             'Develop and maintain the digital ESET key purchasing system for web and mobile under OON SOFT.',
             'Back end: .NET Web API (C#) for REST APIs, business logic, and key management.',
@@ -141,6 +199,11 @@ export const portfolioData = {
           name: 'Furusaan – Custom Clearance Invoice',
           detailSlug: 'furusaan',
           description: 'Custom Clearance Invoice platform (furusaan.com) for sending and verifying invoices.',
+          liveWebsiteDetails: [
+            'Live domain: https://furusaan.com/',
+            'Production invoice workflow platform for sending, verification, and status management.',
+            'Public website uses a protected setup that may limit automated content reads.',
+          ],
           points: [
             'Build and maintain the Furusaan Custom Clearance Invoice platform for companies.',
             'Back end: .NET Web API (C#) for invoice APIs, validation, and workflows.',
@@ -166,6 +229,11 @@ export const portfolioData = {
           name: 'Business Admin',
           detailSlug: 'business-admin',
           description: 'Admin and management panel (business.furusaan.com) for the Furusaan ecosystem.',
+          liveWebsiteDetails: [
+            'Live domain: https://business.furusaan.com/',
+            'Admin portal is protected behind a request-verification/security gateway.',
+            'Supports controlled access for internal business and operations management.',
+          ],
           points: [
             'Develop and maintain the Business Admin panel for Furusaan business operations.',
             'Back end: .NET Web API (C#) for admin APIs and business logic.',
@@ -220,8 +288,13 @@ export const portfolioData = {
 } as {
   name: string;
   tagline: string;
+  headline: string;
   summary: string;
-  contact: { phone: string; email: string };
+  recruiterPitch: string;
+  quickFacts: readonly string[];
+  impactHighlights: readonly string[];
+  atsKeywords: readonly string[];
+  contact: { phone: string; email: string; linkedin: string };
   skills: readonly string[];
   languages: readonly string[];
   education: readonly {
