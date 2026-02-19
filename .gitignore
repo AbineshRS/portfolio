@@ -40,3 +40,8 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Python (project is Angular only)
+.pydeps/
+/assets/
+*.py
